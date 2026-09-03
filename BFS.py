@@ -8,14 +8,16 @@ from collections import deque
     حرکات قابل انجام و حالات قابل دستیابی در/از هر حالت
 '''
 graph = {
-    'A': ('B','C','D'),
-    'B': ('E', 'F'),
-    'C': ('G'),
-    'D': ('H'),
-    'E': (),
-    'F': (),
-    'G': (),
-    'H': ()
+    'Arad': ('Zerind','Sibiu', 'Timisoara'),
+    'Zerind': ('Arad', 'Oradea'),
+    'Sibiu': ('Arad', 'Fagaras', 'Rimniciu Vilcea'),
+    'Timisoara': ('Arad', 'Lugoj'),
+    'Oradea': (),
+    'Lugoj': (),
+    'Fagaras': ('Sibiu', 'Bucharest'),
+    'Rimniciu Vilcea': ('Sibiu', 'Pitesti'),
+    'Bucharest': ('Pitetsi', 'Fagaras'),
+    'Pitesti': ('Rimniciu Vilcea', 'Bucharest')
 }
 
 
@@ -24,7 +26,7 @@ class Node:
     def __init__(self, state, parent, depth):
         self.state = state
         self.parent = parent
-        self.depth = depth     # ?
+        self.depth = depth     
 
 
 def expand(node):
@@ -62,10 +64,17 @@ def get_path(goal_node):
     
     path.reverse()
     return path
+    
 
 
 def BFS(start_state, goal):
-        
+    
+    # Handle the case where the start state is already the goal.
+    # Return a valid Node so get_path() can process it correctly.
+    if start_state == goal:
+        return Node(start_state, None, 0)
+    # ──────────────────────────────────────────────
+      
     frontier = deque()
     explored = set()
             
@@ -93,16 +102,12 @@ def BFS(start_state, goal):
     return 'Failure'
 
 
-goal = 'G'
-start_state = 'A'
+start_state = 'Arad'
+goal = 'Bucharest'
 
 result = BFS(start_state, goal)
+
 if result != 'Failure':
     goal = result
-else:
-    print(result)
-    
-goal_path = get_path(goal)
-
-print(goal.state)
-print(goal_path)
+    goal_path = get_path(goal)
+  
