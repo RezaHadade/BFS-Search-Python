@@ -3,23 +3,8 @@ from collections import deque
 # append() : appending a node to end of the list
 # popleft() : poping a node from the front of the list
 
-
 ''' Actually, 'graph' is somehow the successor function - Problem formulation
-    حرکات قابل انجام و حالات قابل دستیابی در/از هر حالت
 '''
-graph = {
-    'Arad': ('Zerind','Sibiu', 'Timisoara'),
-    'Zerind': ('Arad', 'Oradea'),
-    'Sibiu': ('Arad', 'Fagaras', 'Rimniciu Vilcea'),
-    'Timisoara': ('Arad', 'Lugoj'),
-    'Oradea': (),
-    'Lugoj': (),
-    'Fagaras': ('Sibiu', 'Bucharest'),
-    'Rimniciu Vilcea': ('Sibiu', 'Pitesti'),
-    'Bucharest': ('Pitetsi', 'Fagaras'),
-    'Pitesti': ('Rimniciu Vilcea', 'Bucharest')
-}
-
 
 class Node:
     
@@ -102,8 +87,8 @@ def BFS(start_state, goal):
     return 'Failure'
 
 
-start_state = 'Arad'
-goal = 'Bucharest'
+start_state = input('Start: ')
+goal = input('Goal: ')
 
 result = BFS(start_state, goal)
 
